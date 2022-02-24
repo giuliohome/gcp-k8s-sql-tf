@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-app-pod
+spec:
+  selector:
+    matchLabels:
+      app: gunicorn-flask
+      version: one
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: gunicorn-flask
+        version: one
+    spec:
+      containers:
+      - name: hello-app-1
+        image: "giuliohome/gcp-flask-sqlserver-k8s:latest"
+        env:
+        - name: DB_HOST 
+          value: $DB_HOST # private ip 
+        - name: DB_USERNAME
+          value: $DB_USERNAME
+        - name:  DB_PASSWORD
+          value: $DB_PASSWORD
+# export DB_HOST="10.17.208.3"
+# envsubst < deployment.yaml | kubectl apply -f -
+# see https://serverfault.com/a/843883
+# gcloud container clusters get-credentials giulio-myterraform-gke-dev  --zone=us-central1 
+# kubectl apply -f deployment.yaml
+# ... services.yaml and ingress
+# gcloud container clusters update giulio-myterraform-gke-dev  --zone=us-central1 --logging=SYSTEM,WORKLOAD --monitoring=SYSTEM
+
+#│ Error: googleapi: Error 403: Service Networking API has not been used in project 553502752091 before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/servicenetworking.googleapis.com/overview?project=553502752091 then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry.
+# maybe also Cloud SQL Admin API
