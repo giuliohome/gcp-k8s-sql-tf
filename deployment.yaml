@@ -26,6 +26,8 @@ spec:
           value: $DB_PASSWORD
 # export DB_HOST="10.17.208.3"
 # read DB_HOST < <(terraform output -raw private_ip_address)
+# export DB_HOST=$DB_HOST
+# gcloud container clusters get-credentials my-cloud-giulio-dev-v1-mytf --region us-central1 --project my-cloud-giulio
 # envsubst < deployment.yaml | kubectl apply -f -
 # see https://serverfault.com/a/843883
 # gcloud container clusters get-credentials giulio-myterraform-gke-dev  --zone=us-central1 
