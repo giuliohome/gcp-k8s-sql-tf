@@ -27,5 +27,5 @@ variable "gke_num_nodes" {
 }
 
 variable "machine_type" {
-  default="n2-standard-2"
+  default="n1-standard-1"
 }
