@@ -22,6 +22,10 @@ variable "gke_password" {
 }
 
 variable "gke_num_nodes" {
-  default     = 2
+  default     = 4
   description = "number of gke nodes"
+}
+
+variable "machine_type" {
+  default="n2-standard-2"
 }

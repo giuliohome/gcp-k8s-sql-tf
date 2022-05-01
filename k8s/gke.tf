@@ -14,8 +14,8 @@ resource "google_container_cluster" "primary" {
   # We can't create a cluster with no node pool defined, but we want to only use
   # separately managed node pools. So we create the smallest possible default
   # node pool and immediately delete it.
-  // remove_default_node_pool = true
-  // initial_node_count       = 1
+  remove_default_node_pool = true
+  initial_node_count       = 1
   
   network    = "projects/${var.project_id}/global/networks/default"
   # depends_on = [google_compute_subnetwork.vpc]
@@ -23,7 +23,7 @@ resource "google_container_cluster" "primary" {
   # cluster_ipv4_cidr = "11.58.12.0/28" 
   
   # Enabling Autopilot for this cluster
-  enable_autopilot = true
+  # enable_autopilot = true
 
   /*private_cluster_config {
       enable_private_nodes = true
@@ -42,7 +42,6 @@ resource "google_container_cluster" "primary" {
 }
 
 # Separately Managed Node Pool
-/*
 resource "google_container_node_pool" "gke_node_pool" {
   name       = "${var.cluster_name}-node-pool-mytf"
   location   = var.region
@@ -60,11 +59,10 @@ resource "google_container_node_pool" "gke_node_pool" {
     }
 
     # preemptible  = true
-    machine_type = "n1-standard-1"
+    machine_type = var.machine_type
     tags         = ["gke-node", "${var.project_id}-${var.cluster_name}"]
     metadata = {
       disable-legacy-endpoints = "true"
     }
   }
 }
-*/
